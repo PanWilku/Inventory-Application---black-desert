@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Search Results | Black Desert Market Items</title>
+  <link href="/output.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-900 flex-col p-10 text-white flex items-center justify-center min-h-screen">
+  <div class="text-center p-8 bg-gray-800 rounded-2xl shadow-lg max-w-md">
+    <h1 class="text-3xl font-bold mb-4">Welcome to Black Desert Market Items</h1>
+    <p class="text-gray-300 text-lg">Explore prices, stock, and trades of in-game items!</p>
+    
+    <form action="/search" method="GET" class="mt-6">
+      <input type="text" name="search" id="search" placeholder="Search for items..." class="mt-4 p-2 rounded bg-gray-700 text-gray-200 w-full" />
+      <select name="category" id="category" class="mt-4 p-2 rounded bg-gray-700 text-gray-200 w-full">
+        <option value="">Select a category</option>
+        <% dataCategories.forEach(cat => { %>
+          <option value="<%= cat.id %>"><%= cat.name %></option>
+        <% }) %>
+      </select>
+      <button type="submit" id="searchButton" class="mt-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white">Search</button>
+    </form>
+  </div>
+
+  <table class="w-full text-sm text-left text-gray-400 mt-8">
+    <thead class="text-xs uppercase bg-gray-700 text-gray-300">
+      <tr>
+        <th scope="col" class="px-6 py-3">Item</th>
+        <th scope="col" class="px-6 py-3">Base Price</th>
+        <th scope="col" class="px-6 py-3">Stock</th>
+        <th scope="col" class="px-6 py-3">Item ID</th>
+        <th scope="col" class="px-6 py-3">Category</th>
+        <th scope="col" class="px-6 py-3">Subcategory</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% dataItems.forEach(item => { %>
+        <tr class="bg-gray-800 border-b border-gray-700">
+          <td class="px-6 py-4"><%= item.name %></td>
+          <td class="px-6 py-4"><%= item.baseprice %></td>
+          <td class="px-6 py-4"><%= item.currentstock %></td>
+          <td class="px-6 py-4"><%= item.item_id %></td>
+          <% const category = dataCategories.find(cat => cat.id === item.maincategory); %>
+          <td class="px-6 py-4"><%= category ? category.name : 'Unknown' %></td>
+          <% 
+          const subcategory = dataSubcategories.find(subcat => subcat.sub_id === item.subcategory && subcat.category_id === item.maincategory);
+          %>
+        <td class="px-6 py-4"><%= subcategory ? subcategory.name : 'Unknown' %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+</body>
+</html>

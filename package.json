@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "dotenv": "^17.2.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "pg": "^8.16.3",
+    "tailwindcss": "^4.1.11"
+  },
+  "scripts": {
+    "dev:css": "npx @tailwindcss/cli -i ./public/styles.css -o ./public/output.css --watch",
+    "build:css": "npx tailwindcss -i ./public/styles.css -o ./public/output.css --minify",
+    "populatedb": "node db/populatedb.js",
+    "dropdb": "node db/dropdb.js"
+  }
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Add Category | Black Desert Market Items</title>
+  <link href="/output.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-900 flex items-center justify-center min-h-screen text-white">
+
+  <div class="text-center p-8 bg-gray-800 rounded-2xl shadow-lg max-w-md w-full">
+    <h1 class="text-3xl font-bold mb-4">Add a New Item</h1>
+    <p class="text-gray-300 text-lg mb-6">Enter data of the item you want to add.</p>
+
+    <form action="/add-item" method="POST" class="flex flex-col space-y-4">
+        <div>
+        
+          <input
+            type="text"
+            name="name"
+            id="item"
+            placeholder="Item name..."
+            required
+            class="p-3 rounded bg-gray-700 text-gray-200 w-full"
+          />
+        </div>
+        <div>
+          <select name="category" id="category" class="p-3 rounded bg-gray-700 text-gray-200 w-full">
+            <option value="">Select a category</option>
+            <% for(let i = 0; i < dataCategories.length; i++) { %>
+              <option value="<%= dataCategories[i].id %>"><%= dataCategories[i].name %></option>
+            <% } %>
+          </select>
+        </div>
+        <div>
+            <select name="subcategory" id="subcategory" class="p-3 rounded bg-gray-700 text-gray-200 w-full">
+            <option value="">Select a subcategory</option>
+            <% for(let i = 0; i < dataSubcategories.length; i++) { %>
+                <option 
+                value="<%= dataSubcategories[i].sub_id %>" 
+                data-category-id="<%= dataSubcategories[i].category_id %>"
+                >
+                <%= dataSubcategories[i].name %>
+                </option>
+            <% } %>
+            </select>
+        </div>
+        <div>
+          <input
+            type="number"
+            name="baseprice"
+            id="baseprice"
+            placeholder="Base price..."
+            required
+            class="p-3 rounded bg-gray-700 text-gray-200 w-full"
+          />
+        </div>
+        <div>
+            <input
+              type="number"
+              name="currentstock"
+              id="currentstock"
+              placeholder="Current stock..."
+              required
+              class="p-3 rounded bg-gray-700 text-gray-200 w-full"
+            />
+        </div>
+        <div>
+      <button type="submit" class="px-4 py-2 bg-green-600 hover:bg-green-700 rounded text-white">Add Item</button>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+  <script>
+    //dynamically update subcategory options based on selected category
+  const categorySelect = document.getElementById("category");
+  const subcategorySelect = document.getElementById("subcategory");
+  const allSubcategoryOptions = Array.from(subcategorySelect.options).slice(1); // exclude first placeholder
+
+  categorySelect.addEventListener("change", () => {
+    const selectedCategoryId = categorySelect.value;
+
+    subcategorySelect.innerHTML = '<option value="">Select a subcategory</option>';
+
+    const filtered = allSubcategoryOptions.filter(option => option.dataset.categoryId === selectedCategoryId);
+    filtered.forEach(option => subcategorySelect.appendChild(option));
+  });
+</script>
+</body>
+</html>
