@@ -6,22 +6,55 @@
   <link href="/output.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
 </head>
+
 <body class="bg-gray-900 flex-col p-10 text-white flex items-center justify-center min-h-screen">
-  <div class="text-center p-8 bg-gray-800 rounded-2xl shadow-lg max-w-md">
-    <h1 class="text-3xl font-bold mb-4">Welcome to Black Desert Market Items</h1>
-    <p class="text-gray-300 text-lg">Explore prices, stock, and trades of in-game items!</p>
-    
-    <form action="/search" method="GET" class="mt-6">
-      <input type="text" name="search" id="search" placeholder="Search for items..." class="mt-4 p-2 rounded bg-gray-700 text-gray-200 w-full" />
-      <select name="category" id="category" class="mt-4 p-2 rounded bg-gray-700 text-gray-200 w-full">
-        <option value="">Select a category</option>
-        <% dataCategories.forEach(cat => { %>
-          <option value="<%= cat.id %>"><%= cat.name %></option>
-        <% }) %>
-      </select>
-      <button type="submit" id="searchButton" class="mt-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white">Search</button>
-    </form>
+  
+<div class="flex w-full">
+  <div class="flex flex-col items-center justify-center flex-1 gap-4">
+    <a href="/"><button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Homepage</button></a>
   </div>
+
+  <div class="flex-1 flex items-center justify-center">
+    <div class="text-center p-8 bg-gray-800 rounded-2xl shadow-lg w-full max-w-xl">
+      <h1 class="text-3xl font-bold mb-4">Welcome to Black Desert Market Items</h1>
+      <p class="text-gray-300 text-lg">Explore prices, stock, and items outside the game!</p>
+
+      <form action="/search" method="GET" class="mt-6">
+        <input
+          type="text"
+          name="search"
+          value="<%= searchTerm %>"
+          id="search"
+          placeholder="Search for items..."
+          class="mt-4 p-2 rounded bg-gray-700 text-gray-200 w-full"
+        />
+        <select
+          name="category"
+          id="category"
+          class="mt-4 p-2 rounded bg-gray-700 text-gray-200 w-full"
+        >
+          <option value="">Select a category</option>
+          <% dataCategories.forEach(cat => { %>
+            <option value="<%= cat.id %>" <% if (selectedCategory == cat.id) { %>selected<% } %>>
+              <%= cat.name %>
+            </option>
+          <% }) %>
+        </select>
+        <button
+          type="submit"
+          id="searchButton"
+          class="mt-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="flex-1 flex items-center justify-center">
+
+  </div>
+</div>
 
   <table class="w-full text-sm text-left text-gray-400 mt-8">
     <thead class="text-xs uppercase bg-gray-700 text-gray-300">
@@ -51,6 +84,38 @@
       <% }) %>
     </tbody>
   </table>
+  <div class="flex justify-center mt-6 flex-wrap gap-2">
+  <% 
+    const range = [];
+    const totalVisible = 3; // pages before and after current
+    const totalPagesToShow = 3; // always show first 3 and last 3
+
+    for (let i = 1; i <= totalPages; i++) {
+      if (
+        i <= totalPagesToShow || 
+        i > totalPages - totalPagesToShow || 
+        (i >= currentPage - totalVisible && i <= currentPage + totalVisible)
+      ) {
+        range.push(i);
+      } else if (range[range.length - 1] !== '...') {
+        range.push('...');
+      }
+    }
+  %>
+
+  <% range.forEach(page => { %>
+    <% if (page === '...') { %>
+      <span class="px-3 py-1 text-gray-400">...</span>
+    <% } else { %>
+      <a 
+        href="/search?search=<%= searchTerm %>&category=<%= selectedCategory %>&page=<%= page %>" 
+        class="px-3 py-1 rounded border border-gray-600 <% if (page === currentPage) { %> bg-blue-600 text-white <% } else { %> text-gray-300 hover:bg-gray-700 <% } %>">
+        <%= page %>
+      </a>
+    <% } %>
+  <% }); %>
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 </body>
 </html>

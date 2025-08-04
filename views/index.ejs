@@ -10,27 +10,71 @@
 <body class="bg-gray-900 flex-col p-10 text-white flex items-center justify-center min-h-screen">
 <div class="flex w-full">
   <div class="flex flex-col items-center justify-center flex-1 gap-4">
-      <a href="/add-category"><button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add category</button></a>
-      <a href="/delete-category"><button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete category</button></a>
-      <a href="/add-item"><button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add item</button></a>
+    <a href="/add-category">
+      <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Add category
+      </button>
+    </a>
+    <a href="/delete-category">
+      <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        Delete category
+      </button>
+    </a>
+    <a href="/add-item">
+      <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        Add item
+      </button>
+    </a>
   </div>
-  <div class="text-center p-8 bg-gray-800 rounded-2xl shadow-lg flex-1">
-    <h1 class="text-3xl font-bold mb-4">Welcome to Black Desert Market Items</h1>
-    <p class="text-gray-300 text-lg">Explore prices, stock, and trades of in-game items!</p>
-    <form action="/search" method="GET" class="mt-6">
-      <input type="text" name="search" id="search" placeholder="Search for items..." class="mt-4 p-2 rounded bg-gray-700 text-gray-200 w-full" />
-      <select name="category" id="category" class="mt-4 p-2 rounded bg-gray-700 text-gray-200 w-full">
-        <option value="">Select a category</option>
-        <% for(let i = 0; i < dataCategories.length; i++) { %>
-          <option value="<%= dataCategories[i].id %>"><%= dataCategories[i].name %></option>
-        <% } %>
-      </select>
-      <button type="submit" id="searchButton" class="mt-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white">Search</button>
-    </form>
-  </div>
-  <div class="flex items-center justify-center flex-1">
 
+  <div class="flex-1 flex items-center justify-center">
+    <div class="text-center p-8 bg-gray-800 rounded-2xl shadow-lg w-full max-w-xl">
+      <h1 class="text-3xl font-bold mb-4">Welcome to Black Desert Market Items</h1>
+      <p class="text-gray-300 text-lg">Explore prices, stock, and items outside the game!</p>
+
+      <form action="/search" method="GET" class="mt-6">
+        <input
+          type="text"
+          name="search"
+          id="search"
+          placeholder="Search for items..."
+          class="mt-4 p-2 rounded bg-gray-700 text-gray-200 w-full"
+        />
+        <select
+          name="category"
+          id="category"
+          class="mt-4 p-2 rounded bg-gray-700 text-gray-200 w-full"
+        >
+          <option value="">Select a category</option>
+          <% for (let i = 0; i < dataCategories.length; i++) { %>
+            <option value="<%= dataCategories[i].id %>">
+              <%= dataCategories[i].name %>
+            </option>
+          <% } %>
+        </select>
+        <button
+          type="submit"
+          id="searchButton"
+          class="mt-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white"
+        >
+          Search
+        </button>
+      </form>
+    </div>
   </div>
+
+
+  <div class="flex-1 flex items-center justify-center">
+    <p class="p-6 text-justify">
+    The data is sourced from 
+    <a class="text-blue-400 underline" href="https://www.postman.com/bdomarket/arsha-io-bdo-market-api/collection/qpavrc8/bdo-market-api-v2">here</a>. 
+    Additional data is collected from 
+    <a class="text-blue-400 underline" href="https://github.com/andreivreja/veliainn-market-resources/blob/main/data/categories.json">here</a>. 
+    The data was fetched once, and the database does not update in real time as it's outside the scope of project requirements.  
+    I'm quite happy that I somehow could figure out how to implement this.
+  </p>
+  </div>
+</div>
 </div>
   <table class="w-full text-sm text-left text-gray-400 mt-8">
   <thead class="text-xs uppercase bg-gray-700 text-gray-300">

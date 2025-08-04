@@ -551,5 +551,16 @@
                 "name": "Others"
             }
         }
+    },
+    "85": {
+        "name": "Lightstones",
+            "sub_categories": {
+                "1": { "name": "Fire" },
+                "2": { "name": "Earth" },
+                "3": { "name": "Wind" },
+                "4": { "name": "Flora" },
+                "5": { "name": "Special" },
+                "6": { "name": "Artifacts" }
+        }
     }
 }

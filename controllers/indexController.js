@@ -3,12 +3,13 @@ const db = require('../db/pool');
 const index = async (req, res) => {
     const itemsPerPage = 20;
     const currentPage = parseInt(req.query.page) || 1;
+    console.log("Current Page:", req.query.page);
     const offset = (currentPage - 1) * itemsPerPage;
 
     try {
         // Get items for this page
         const dataItemsResult = await db.query(
-            'SELECT * FROM items ORDER BY id LIMIT $1 OFFSET $2',
+            'SELECT * FROM items ORDER BY name LIMIT $1 OFFSET $2',
             [itemsPerPage, offset]
         );
         const dataItems = dataItemsResult.rows;

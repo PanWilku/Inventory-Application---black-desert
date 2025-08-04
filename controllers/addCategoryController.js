@@ -28,17 +28,12 @@ const postCategory = async (req, res) => {
         const maxIDQuery = await db.query(`SELECT MAX(id) AS max_id FROM categories`);
         const maxID = maxIDQuery.rows[0].max_id;
         newID = maxID + 5;
+        console.log("New category ID:", newID);
+        console.log(maxIDQuery.rows[0]);
         let categoryData = await db.query('INSERT INTO categories (id, name) VALUES ($1, $2) RETURNING id, name', [newID, data.category]);
         categoryData = categoryData.rows[0];
         console.log("Inserted new category:", categoryData.id, categoryData.name);
     }
-
-
-
-
-
-
-
 
 
     //adding subcategory
