@@ -8,6 +8,7 @@
     "tailwindcss": "^4.1.11"
   },
   "scripts": {
+    "start": "npm run build:css && node app.js",
     "dev:css": "npx @tailwindcss/cli -i ./public/styles.css -o ./public/output.css --watch",
     "build:css": "npx tailwindcss -i ./public/styles.css -o ./public/output.css --minify",
     "populatedb": "node db/populatedb.js",
