@@ -18,7 +18,7 @@ async function main() {
   console.log("Seeding from items.json...");
 
   const client = new Client({
-    connectionString: `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@localhost:5432/bdo_market`,
+    connectionString: `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@localhost:5432/bd_app`,
   });
 
   await client.connect();

@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS items;
 async function main() {
   console.log("dropping table...");
   const client = new Client({
-    connectionString: `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@localhost:5432/bdo_market`,
+    connectionString: `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@localhost:5432/bd_app`,
   });
   try {
     await client.connect();

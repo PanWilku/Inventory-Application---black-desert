@@ -1,11 +1,13 @@
 const express = require('express');
+require('dotenv').config();
 const { indexRouter } = require('./routes/indexRoute');
 const app = express();
-const { searchRouter } = require('./routes/searchRouter'); 
+const { searchRouter } = require('./routes/searchRouter');
 const { addCategoryRouter } = require('./routes/addCategoryRoute');
 const { deleteCategoryRouter } = require('./routes/deleteCategoryRoute');
 const { addItemRouter } = require('./routes/addItemRoute');
- 
+const PORT = process.env.PORT || 3000;
+
 app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use(express.json());
@@ -35,8 +37,8 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
 
 
